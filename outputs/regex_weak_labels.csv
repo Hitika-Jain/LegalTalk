@@ -1,0 +1,54 @@
+sentence_id,page,line_id,sentence_text,canonical_statutes
+0__8,0,8,"By the impugned judgment and order,
+the High Court has confirmed the judgment of conviction and order of sentence passed by the Court
+of Sessions Judge, Pune in Sessions Case No.284 of 2008, dated 20.03.2012, whereby the learned
+Sessions Judge has convicted the accused-appellants for the offence under Sections 302, 376(2)(g),
+364 and 404 read with Section 120-B of the Indian Penal Code, 1860 (for short, “the IPC”) and
+consequently awarded death sentence.",IPC_120B;IPC_302
+2__5,2,5,"Therefore, an offence under Section
+302 of the IPC was registered and the spot panchanama was prepared in the presence of PW-3.",IPC_302
+2__31,2,31,"On 05.03.2009, the
+charges were framed under Sections 364, 376(2)(g) and 302 read with 34 and 404 read with 34 of
+the IPC.",IPC_364
+2__32,2,32,"On 03.04.2010, the charge was altered and the independent charge of conspiracy under
+Section 120-B of the IPC was added.",IPC_120B
+2__33,2,33,"Additionally, the charge under Section 120-B of the IPC was
+added with the charge under Sections 302, 376(2)(g), 364 and 404 of the IPC.",IPC_120B;IPC_302
+3__15,3,15,"The Sessions Court has noticed that the evidence of
+PW-12, which states that the deceased was last seen in the company of accused-appellants, coupled
+with the lack of explanation for the same by the accused-appellants in their statements under
+Section 313 of the Code, provides a firm link in the chain of circumstances.",IPC_313
+4__5,4,5,"After
+affording an opportunity of hearing to the accused-appellants on the question of sentence, the
+Sessions Court has awarded them death sentence and fine of Rs.5,000/- each for the offence
+punishable under Section 120-B of the IPC, death sentence and fine of Rs.5,000/- each for the
+offence punishable under Section 302 read with Section 120-B of the IPC; imprisonment for life and
+fine of Rs.5,000/- for the offence punishable under Section 376(2)(g) read with Section 120-B of the
+IPC; imprisonment for life and fine of Rs.5,000/- each for the offence punishable under Section 364
+read with Section 120-B of the IPC; and rigorous imprisonment for two years and a fine of
+Rs.10,000/- each for the offence punishable under Section 404 read with Section 120-B of the IPC.",IPC_120B;IPC_302;IPC_364;IPC_376_2_G;IPC_404
+4__9,4,9,"Aggrieved by the aforesaid judgment and order, the accused-appellants filed an appeal before the
+High Court which was heard along with the Reference for confirmation of death sentence under
+Section 366 Code of Criminal Procedure, 1973 (for short, “the Code”) and disposed of by a common
+judgment and order, dated 12.09.2012, 13.09.2012, 24.09.2012 and 25.09.2012.",IPC_366
+5__21,5,21,"However, it would be apposite to notice the decision of
+this Court in the case of Bachan Singh (supra), wherein the constitutional validity of the provisions
+that authorize the Trial Court to award death sentence for the offence punishable under Section 302
+of the IPC and other offences was upheld.",IPC_302
+7__3,7,3,"For instance, murder is of a person who had acted in lawful discharge of his duty under Section 43
+CrPC.",IPC_43
+10__3,10,3,"We agree that a real and abiding concern for the dignity of human life is
+required to be kept in mind by the courts while considering the confirmation of the sentence of
+death but a cold blooded preplanned brutal murder, without any provocation, after committing rape
+on an innocent and defenceless young girl of 18 years, by the security guard certainly makes this
+case a “rarest of the rare” cases which calls for no punishment other than the capital punishment
+and we accordingly confirm the sentence of death imposed upon the appellant for the offence under
+Section 302 IPC.",IPC_302
+10__4,10,4,"The order of sentence imposed on the appellant by the courts below for offences
+under Sections 376 and 380 IPC are also confirmed along with the directions relating thereto as in
+the event of the execution of the appellant, those sentences would only remain of academic interest.",IPC_376;IPC_380
+12__23,12,23,"ITEM NO.1A                  COURT NO.1               SECTION II
+(FOR JUDGMENT)
+                  S U P R E M E C O U R T O F     I N D I A
+                          RECORD OF PROCEEDINGS
+Criminal Appeal    No(s).",IPC_1A
