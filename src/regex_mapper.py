@@ -213,11 +213,12 @@ def map_jsonl_file_to_hits(jsonl_path, out_csv, include_legal_terms=True):
 
     return rows
 
-from google.colab import drive
-drive.mount('/content/drive')
+# from google.colab import drive
+# drive.mount('/content/drive')
 
 # Commented out IPython magic to ensure Python compatibility.
-!git clone https://github.com/Hitika-Jain/LegalTalk.git
+#!git clone https://github.com/Hitika-Jain/LegalTalk.git
 
 # %cd LegalTalk
+
 
