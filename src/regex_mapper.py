@@ -11,6 +11,7 @@ import re
 import json
 import csv
 from pathlib import Path
+from src.utils import normalize_to_ipc
 
 # 1. Build improved regex patterns
 # =============================
@@ -151,74 +152,85 @@ def find_statutes_in_text(text, patterns=None):
 
 # 4. Apply to JSONL file
 # =============================
+import re, json, csv
+from pathlib import Path
+from src.utils import normalize_to_ipc
 
-def map_jsonl_file_to_hits(jsonl_path, out_csv, include_legal_terms=True):
-    """
-    Reads JSONL lines of:
-        { "page":..., "line_id":..., "start_char":..., "end_char":..., "text":... }
-    Extracts statute references into CSV.
-    """
+# (assume build_statute_patterns and find_statutes_in_text are defined here above in your notebook)
+# If they are in other cells, keep those definitions; this file focuses on map_jsonl_file_to_hits.
 
+def map_jsonl_file_to_hits(jsonl_path, out_csv, include_legal_terms=True, filter_none_canonical=True):
+    """
+    Reads parsed JSONL and writes CSV including canonical_id (IPC_...).
+    """
     jsonl_path = str(jsonl_path)
     out_csv = str(out_csv)
 
-    patterns = build_statute_patterns()
-    rows = []
+    # import local build/find if they exist; otherwise the notebook-level functions will be used during runtime.
+    try:
+        from src.regex_mapper import build_statute_patterns as _bp  # guard to avoid recursion when reloading
+        patterns = _bp()
+    except Exception:
+        # Patterns will be taken from notebook definitions if present
+        patterns = None
 
+    rows = []
     with open(jsonl_path, "r", encoding="utf-8") as fin:
         for line_no, line in enumerate(fin):
             rec = json.loads(line)
             txt = rec.get("text", "") or ""
-
             page = rec.get("page")
             line_id = rec.get("line_id")
             start_char = rec.get("start_char")
 
-            hits = find_statutes_in_text(txt, patterns=patterns)
+            # call notebook-level find_statutes_in_text if module-level isn't available
+            try:
+                from src.regex_mapper import find_statutes_in_text as finder
+                hits = finder(txt, patterns=patterns)
+            except Exception:
+                # fallback to expecting find_statutes_in_text defined in the notebook's global scope
+                hits = find_statutes_in_text(txt, patterns=patterns)
 
             for h in hits:
-                rows.append({
+                statute_raw = h.get("statute_raw") or h.get("match_text")
+                canonical_id = normalize_to_ipc(statute_raw)
+
+                if filter_none_canonical and canonical_id is None:
+                    continue
+
+                row = {
                     "line_no": line_no,
                     "page": page,
                     "line_id": line_id,
                     "sentence_text": txt,
-                    "statute_raw": h["statute_raw"],
-                    "pattern_name": h["pattern_name"],
-                    "match_text": h["match_text"],
-                    "local_start": h["span_start"],
-                    "local_end": h["span_end"],
-                    "global_start": (start_char + h["span_start"])
-                                    if isinstance(start_char, int) else None,
-                    "global_end": (start_char + h["span_end"])
-                                  if isinstance(start_char, int) else None
-                })
+                    "statute_raw": statute_raw,
+                    "canonical_id": canonical_id,
+                    "pattern_name": h.get("pattern_name"),
+                    "match_text": h.get("match_text"),
+                    "local_start": h.get("span_start"),
+                    "local_end": h.get("span_end"),
+                    "global_start": (start_char + h.get("span_start")) if isinstance(start_char, int) and h.get("span_start") is not None else None,
+                    "global_end": (start_char + h.get("span_end")) if isinstance(start_char, int) and h.get("span_end") is not None else None
+                }
+                rows.append(row)
 
-    # Write CSV
-    if rows:
-        with open(out_csv, "w", encoding="utf-8", newline="") as fout:
-            writer = csv.DictWriter(fout, fieldnames=list(rows[0].keys()))
-            writer.writeheader()
-            for r in rows:
-                writer.writerow(r)
-        print(f"Wrote {len(rows)} hits → {out_csv}")
-    else:
-        print(f"Wrote 0 hits → {out_csv}")
-        with open(out_csv, "w", encoding="utf-8", newline="") as fout:
-            writer = csv.writer(fout)
-            writer.writerow([
-                "line_no","page","line_id","sentence_text",
-                "statute_raw","pattern_name","match_text",
-                "local_start","local_end","global_start","global_end"
-            ])
-
+    # write CSV
+    fieldnames = ["line_no","page","line_id","sentence_text",
+                  "statute_raw","canonical_id","pattern_name","match_text",
+                  "local_start","local_end","global_start","global_end"]
+    with open(out_csv, "w", encoding="utf-8", newline="") as fout:
+        writer = csv.DictWriter(fout, fieldnames=fieldnames)
+        writer.writeheader()
+        for r in rows:
+            writer.writerow({k: r.get(k, "") for k in fieldnames})
+    print(f"Wrote {len(rows)} hits → {out_csv}")
     return rows
 
-# from google.colab import drive
-# drive.mount('/content/drive')
+#from google.colab import drive
+#drive.mount('/content/drive')
 
 # Commented out IPython magic to ensure Python compatibility.
 #!git clone https://github.com/Hitika-Jain/LegalTalk.git
 
 # %cd LegalTalk
-
 
