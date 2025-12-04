@@ -1,1 +1,7 @@
+streamlit
+pdfplumber
+python-docx
+pytesseract
+pillow
+nltk
 pandas
