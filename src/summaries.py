@@ -7,8 +7,12 @@ Original file is located at
     https://colab.research.google.com/drive/1aLhq1qQTsHTdJsce1gZktYc4K6RndjGJ
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
+# Only mount drive if running in Colab
+try:
+    from google.colab import drive
+    drive.mount('/content/drive')
+except ImportError:
+    pass  # Not running in Colab
 
 
 
