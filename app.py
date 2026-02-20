@@ -20,10 +20,10 @@ def get_pipeline() -> StatutePipeline:
 
 
 def main() -> None:
-    st.title("Legal PDF Analyzer")
+    st.title("Legal-Talk")
     st.write(
-        "Upload a PDF/image. The app runs OCR/text extraction, regex statute mapping, "
-        "semantic section mapping, graph-based fusion, and then creates legal + layman summaries."
+        "Upload a legal document to extract structured insights, identify relevant IPC sections, "
+        "and generate professional and simplified summaries."
     )
 
     uploaded = st.file_uploader("Upload case file", type=["pdf", "png", "jpg", "jpeg", "tif", "tiff", "bmp", "webp"])
