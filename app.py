@@ -3,10 +3,11 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import streamlit as st
+# Add the project root to the path so imports work correctly
+project_root = Path(__file__).resolve().parent
+sys.path.insert(0, str(project_root))
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+import streamlit as st
 
 from src.preprocessing import parse_uploaded_file
 from src.statute_ensemble import StatutePipeline
@@ -14,7 +15,7 @@ from src.statute_ensemble import StatutePipeline
 
 @st.cache_resource
 def get_pipeline() -> StatutePipeline:
-    data_path = Path(__file__).resolve().parents[1] / "data" / "statutes.csv"
+    data_path = Path(__file__).resolve().parent / "data" / "statutes.csv"
     return StatutePipeline(str(data_path))
 
 
